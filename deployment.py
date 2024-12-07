@@ -89,7 +89,7 @@ def main():
 
     user_input = [air_temp, proc_temp, rot_speed, torque, tool_wear]
 
-    if st.button('Predict Failure or Not'):
+    if st.button('Predict'):
 
         model = XGBClassifier(random_state=42)
         model.fit(A_train, b_train)
