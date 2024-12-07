@@ -53,7 +53,7 @@ def make_prediction(model, user_input):
     return prediction[0]
 
 def main():
-    st.title('XGBoost Model Evaluation')
+    st.title('Predictive Maintenance: XGBoost Model Evaluation')
 
     # Load data
     df = load_data()
