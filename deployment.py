@@ -67,17 +67,16 @@ def main():
 
     # Train-Test Split
     A_train, A_test, b_train, b_test = train_test_split(A, b, test_size=0.2, random_state=42, stratify=b)
+    model, accuracy, precision, recall, f1 = train_model(A_train, b_train, A_test, b_test)
 
-    # Train and evaluate the model
-    if st.button('Train and Evaluate Model'):
-        model, accuracy, precision, recall, f1 = train_model(A_train, b_train, A_test, b_test)
+    if st.checkbox('Show Model Evaluation Metrics'):
         
-        # Display results
         st.subheader('Model Evaluation Metrics:')
         st.write(f'Accuracy: {accuracy:.4f}')
         st.write(f'Precision: {precision:.4f}')
         st.write(f'Recall: {recall:.4f}')
         st.write(f'F1 Score: {f1:.4f}')
+
     
     # Input fields for user prediction using sliders
     st.subheader('Make a Prediction')
@@ -91,14 +90,12 @@ def main():
     user_input = [air_temp, proc_temp, rot_speed, torque, tool_wear]
 
     if st.button('Predict Failure or Not'):
-        # Train the model first (if not already trained)
+
         model = XGBClassifier(random_state=42)
         model.fit(A_train, b_train)
 
-        # Make prediction
         prediction = make_prediction(model, user_input)
 
-        # Output result: whether failure is predicted or not
         if prediction == 1:
             st.write("Prediction: The machine is predicted to fail!")
         else:
